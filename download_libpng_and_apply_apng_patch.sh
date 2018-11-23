@@ -10,20 +10,19 @@ EOF
     exit
 }
 
-if [ $# -eq 0 ]; then
-  print_help_and_exit
-  exit
+if [ $# -ne 0 ]; then
+  case "$1" in
+    -h|-?|--help)
+      print_help_and_exit
+      exit
+      ;;
+    *)
+      LIBPNG_VERSION="$1"
+      ;;
+  esac
 fi
 
-case "$1" in
-  -h|-?|--help)
-    print_help_and_exit
-    exit
-    ;;
-  *)
-    LIBPNG_VERSION="$1"
-    ;;
-esac
+LIBPNG_VERSION=${LIBPNG_VERSION:-1.6.34}
 
 echo libpng version = ${LIBPNG_VERSION}
 LIBPNG_VERSION_MAJOR=${LIBPNG_VERSION%%.*}
